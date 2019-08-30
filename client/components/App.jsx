@@ -1,22 +1,17 @@
 import React from 'react'
+import Todo from './Todo'
 
 class App extends React.Component {
-    constructor(props) {
-        super(props)
-        
-        this.state = {
-
-        }
-    }
+	constructor(props) {
+			super(props)
+	}
 
 
-    render() { 
-        return (  
-            <React.Fragment>
-                <h1>Welcome!</h1>
-            </React.Fragment>
-        );
-    }
+	render() { 
+		return (  
+				<Todo />
+		);
+	}
 }
  
 export default App;
