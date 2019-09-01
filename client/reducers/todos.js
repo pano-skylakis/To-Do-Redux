@@ -9,7 +9,7 @@ const todos = (state = initialState, action) => {
       return ([...state, {id: action.id, todo: action.todo, completed: false}])
 
     case DELETE_TODO:
-      return state.filter(item => item.id == action.id)
+      return state.filter(item => item.id != action.id)
 
     case TOGGLE_COMPLETED:
       return state.find(item => action.id === item.id)
