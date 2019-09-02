@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { addTodo, deleteTodo, toggleCompleted } from '../actions' 
+import { addTodo, deleteTodo, toggleCompleted, editTodo } from '../actions' 
 
 let count = 0
 
@@ -11,6 +11,7 @@ class Todo extends React.Component {
 
     this.state = {
       todoInput: '',
+      toggle: true,
     }
   }
 
@@ -30,6 +31,18 @@ class Todo extends React.Component {
     this.props.deleteTodo(e.target.dataset.id)
   }
 
+  handleMarkCompleted = e => {
+    this.props.toggleCompleted(e.target.dataset.id)
+
+    this.setState({toggle: true ? false : true})
+  }
+
+  handleEditTodo = e => {
+    this.props.editTodo(e.target.dataset.id)
+
+    this.setState({toggle: true ? false : true})
+  }
+
   render() {
     return (
       <div>
@@ -41,9 +54,16 @@ class Todo extends React.Component {
         <ul>
           {this.props.todos.map((item, id) => {
             return (
-              <div key={id}>
-                <li id={item.id}>{item.todo}</li><button onClick={this.handleDeleteTodo} data-id={item.id}>delete</button>
-              </div>
+              <li key={id}>
+                {!item.edit && <p id={item.id}>{item.todo}</p>}
+                <div>
+                  <i className="far fa-edit" onClick={this.handleEditTodo} data-id={item.id}></i>
+                </div>
+                <button onClick={this.handleDeleteTodo} data-id={item.id}>delete</button>
+                <div className="check-mark-container" onClick={this.handleMarkCompleted} data-id={item.id}>
+                  {item.completed && <i className="fas fa-check" onClick={this.handleMarkerCompleted} data-id={item.id}></i>}
+                </div>
+              </li>
             )
           })}
         </ul>
@@ -62,7 +82,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     addTodo: (todo) => dispatch(addTodo(todo)),
     deleteTodo: (id) => dispatch(deleteTodo(id)),
-    toggleCompleted: (id) => dispatch(toggleCompleted(id))
+    toggleCompleted: (id) => dispatch(toggleCompleted(id)),
+    editTodo: (id) => dispatch(editTodo(id))
   }
 }
 
