@@ -2,10 +2,30 @@ body {
     background-color: #f9f8f8;
 }
 
-.check-mark-container {
-    width: 1rem;
-    height: 1rem;
-    margin: 1rem 0;
-    border: 2px solid black;
-    background: transparent;
+ul {
+    padding: 0;
+}
+
+.completed {
+    text-decoration: line-through;
+}
+
+.todo {
+    display: grid;
+    grid-template-columns: 10% 70% 10% 10%;
+
+    min-height: 2rem;
+    width: 50%;
+
+    border: 1px solid #9e9e9e;
+    border-radius: 0.25rem;
+}
+
+.far, .fas {
+    align-self: center;
+    justify-self: center;
+}
+
+.todo__text {
+    margin: auto 0;
 }

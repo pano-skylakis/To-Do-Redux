@@ -1,6 +1,6 @@
 import { ADD_TODO, DELETE_TODO, TOGGLE_COMPLETED, EDIT_TODO_TOGGLE, EDIT_TODO_SUBMIT } from '../actions'
 
-const initialState = []
+const initialState = [{id: 0, todo: 'finish this fkn app', completed: false, edit: false}]
 
 const todos = (state = initialState, action) => {
 

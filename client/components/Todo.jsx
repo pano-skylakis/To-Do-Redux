@@ -79,19 +79,19 @@ class Todo extends React.Component {
         <ul>
           {this.props.todos.map((item, id) => {
             return (
-              <li key={id}>
+              <li key={id} className="todo">
+                {!item.completed && <i className="far fa-circle" onClick={this.handleMarkCompleted} data-id={item.id}></i>}
+                {item.completed && <i className="far fa-check-circle" onClick={this.handleMarkCompleted} data-id={item.id}></i>}
+                
                 {
                   !item.edit ? 
-                  <p id={item.id}>{item.todo}</p> : 
+                  <p className={`todo__text ${item.completed ? "completed" : ""}`} id={item.id}>{item.todo}</p> : 
                   <input autoFocus={true} data-id={item.id} value={this.state.todoEdit} onChange={this.handleEditTodo} onKeyPress={this.handleEditSubmit} type="text" />
                 }
-                <div>
-                  <i className="far fa-edit" onClick={this.handleEditButton} data-todo={item.todo} data-id={item.id}></i>
-                </div>
-                <button onClick={this.handleDeleteTodo} data-id={item.id}>delete</button>
-                <div className="check-mark-container" onClick={this.handleMarkCompleted} data-id={item.id}>
-                  {item.completed && <i className="fas fa-check" onClick={this.handleMarkerCompleted} data-id={item.id}></i>}
-                </div>
+
+                <i className="far fa-edit" onClick={this.handleEditButton} data-todo={item.todo} data-id={item.id}></i>
+
+                <i className="fas fa-times" onClick={this.handleDeleteTodo} data-id={item.id}></i>
               </li>
             )
           })}

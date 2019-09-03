@@ -9,5 +9,11 @@ jspm_packages/
 # Webpack bundles
 bundle.*
 
-
+# Logs
 npm-debug.log
+
+# Compiled CSS
+compiled.css/
+
+# Prefixed CSS
+style.prefix.css
