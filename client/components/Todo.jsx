@@ -73,8 +73,9 @@ class Todo extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="container">
         <h1>To-do</h1>
+        <h1>React-Redux</h1>
 
         <input type="text" placeholder="Add your to-do!" onKeyPress={this.handleAddTodo} onChange={this.handleChange} value={this.state.todoInput}/>
       

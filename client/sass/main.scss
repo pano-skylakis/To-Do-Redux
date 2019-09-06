@@ -1,9 +1,87 @@
-body {
-    background-color: #f9f8f8;
+// Variables
+// ---------
+
+$screen-xs: 26rem;
+$screen-sm: 48rem;
+$screen-md: 64rem;
+$screen-lg: 90rem;
+$screen-xl: 100rem;
+
+
+//  Media Queries // 
+// ----------------
+
+@mixin mobile-large {
+  @media (min-width: #{$screen-xs}) {
+    @content;
+  }
 }
+
+@mixin tablet {
+	@media (min-width: #{$screen-sm}) {
+		@content;
+	}
+}
+
+@mixin desktop {
+	@media (min-width: #{$screen-md}) {
+		@content;
+	}
+}
+
+@mixin desktop-large {
+	@media (min-width: #{$screen-lg}) {
+		@content;
+	}
+}
+
+@mixin desktop-xlarge {
+	@media (min-width: #{$screen-xl}) {
+		@content;
+	}
+}
+
+
+// Generic
+// -------
+
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  
+  *:after, *:before {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+  }
+  
+  html {
+    font-size: 16px;
+  }
+  
+  body {
+    margin: 0;
+    height: 100%;
+    font-family: 'Roboto Slab', serif;
+    background-color: #f9f8f8;
+  }
 
 ul {
     padding: 0;
+}
+
+h1 {
+    margin: 0.5rem 0;
+}
+
+
+// Main
+// ----
+
+.container {
+    text-align: center;
+    margin: 0;
 }
 
 .completed {
@@ -11,17 +89,25 @@ ul {
 }
 
 .todo {
+    font-size: 1rem;
+
     display: grid;
     grid-template-columns: 10% 70% 10% 10%;
 
+    position: relative;
+
     min-height: 2rem;
-    width: 50%;
+    width: 85%;
+
+    margin: 0 auto;
+    padding: 1rem;
 
     border: 1px solid #9e9e9e;
     border-radius: 0.25rem;
 }
 
 .far, .fas {
+    font-size: 1.5rem;
     align-self: center;
     justify-self: center;
 }
