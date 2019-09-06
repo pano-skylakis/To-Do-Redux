@@ -1,9 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import Fade from 'react-reveal/Fade'
+import { TransitionGroup } from 'react-transition-group'
 
 import { addTodo, deleteTodo, toggleCompleted, editTodoToggle, editTodoSubmit } from '../actions' 
-
-let count = 0
 
 class Todo extends React.Component {
   constructor(props) {
@@ -13,6 +13,7 @@ class Todo extends React.Component {
       todoInput: '',
       todoEdit: '',
       toggle: true,
+      id: 4
     }
   }
 
@@ -25,8 +26,9 @@ class Todo extends React.Component {
   }
   handleAddTodo = e => {
     if(e.key === 'Enter') {
-      count++
-      this.props.addTodo({todo: e.target.value, id: count})
+      this.setState({id: this.state.id + 1})
+      console.log(this.state.id)
+      this.props.addTodo({todo: e.target.value, id: this.state.id})
       this.setState({todoInput: ''})
     } else {
       return
@@ -37,6 +39,7 @@ class Todo extends React.Component {
   //Delete Todos
   handleDeleteTodo = e => {
     this.props.deleteTodo(e.target.dataset.id)
+    console.log("delete: " + e.target.dataset.id)
   }
 
 
@@ -50,7 +53,6 @@ class Todo extends React.Component {
 
   //Edit Todos
   handleEditButton = e => {
-     console.log(e.target.dataset.todo)
     this.setState({toggle: true ? false : true, todoEdit: e.target.dataset.todo})
     this.props.editTodoToggle(e.target.dataset.id)
   }
@@ -74,28 +76,30 @@ class Todo extends React.Component {
       <div>
         <h1>To-do</h1>
 
-          <input type="text" placeholder="Add your to-do!" onKeyPress={this.handleAddTodo} onChange={this.handleChange} value={this.state.todoInput}/>
+        <input type="text" placeholder="Add your to-do!" onKeyPress={this.handleAddTodo} onChange={this.handleChange} value={this.state.todoInput}/>
+      
+          <TransitionGroup enter={true} appear={false} exit={true}>
+            {this.props.todos.map((item) => {
+              return (
+                <Fade key={item.id} collapse bottom>
+                  <div className="todo">
+                    {!item.completed && <i className="far fa-circle" onClick={this.handleMarkCompleted} data-id={item.id}></i>}
+                    {item.completed && <i className="far fa-check-circle" onClick={this.handleMarkCompleted} data-id={item.id}></i>}
+                    
+                    {
+                      !item.edit ? 
+                      <p className={`todo__text ${item.completed ? "completed" : ""}`} id={item.id}>{item.todo}</p> : 
+                      <input autoFocus={true} data-id={item.id} value={this.state.todoEdit} onChange={this.handleEditTodo} onKeyPress={this.handleEditSubmit} type="text" />
+                    }
 
-        <ul>
-          {this.props.todos.map((item, id) => {
-            return (
-              <li key={id} className="todo">
-                {!item.completed && <i className="far fa-circle" onClick={this.handleMarkCompleted} data-id={item.id}></i>}
-                {item.completed && <i className="far fa-check-circle" onClick={this.handleMarkCompleted} data-id={item.id}></i>}
-                
-                {
-                  !item.edit ? 
-                  <p className={`todo__text ${item.completed ? "completed" : ""}`} id={item.id}>{item.todo}</p> : 
-                  <input autoFocus={true} data-id={item.id} value={this.state.todoEdit} onChange={this.handleEditTodo} onKeyPress={this.handleEditSubmit} type="text" />
-                }
+                    <i className="far fa-edit" onClick={this.handleEditButton} data-todo={item.todo} data-id={item.id}></i>
 
-                <i className="far fa-edit" onClick={this.handleEditButton} data-todo={item.todo} data-id={item.id}></i>
-
-                <i className="fas fa-times" onClick={this.handleDeleteTodo} data-id={item.id}></i>
-              </li>
-            )
-          })}
-        </ul>
+                    <i className="fas fa-times" onClick={this.handleDeleteTodo} data-id={item.id}></i>
+                  </div>
+                </Fade>
+              )
+            })}
+          </TransitionGroup>
       </div>
     )
   }

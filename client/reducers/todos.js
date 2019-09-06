@@ -1,6 +1,10 @@
 import { ADD_TODO, DELETE_TODO, TOGGLE_COMPLETED, EDIT_TODO_TOGGLE, EDIT_TODO_SUBMIT } from '../actions'
 
-const initialState = [{id: 0, todo: 'finish this fkn app', completed: false, edit: false}]
+const initialState = [
+  {id: 1, todo: 'Build another todo list because the world needs one more', completed: true, edit: false},
+  {id: 2, todo: 'Get potential employer to look at app', completed: true, edit: false},
+  {id: 3, todo: 'Impress potential employer', completed: true, edit: false}
+  ]
 
 const todos = (state = initialState, action) => {
 
