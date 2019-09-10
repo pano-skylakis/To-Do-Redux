@@ -27,12 +27,16 @@ class Todo extends React.Component {
   handleAddTodo = e => {
     if(e.key === 'Enter') {
       this.setState({id: this.state.id + 1})
-      console.log(this.state.id)
       this.props.addTodo({todo: e.target.value, id: this.state.id})
       this.setState({todoInput: ''})
     } else {
       return
     }
+  }
+  handleAddTodoButton = e => {
+    this.setState({id: this.state.id + 1})
+    this.props.addTodo({todo: e.target.value, id: this.state.id})
+    this.setState({todoInput: ''})
   }
 
 
@@ -74,10 +78,10 @@ class Todo extends React.Component {
   render() {
     return (
       <div className="container">
-        <h1>To-do</h1>
-        <h1>React-Redux</h1>
-
-        <input type="text" placeholder="Add your to-do!" onKeyPress={this.handleAddTodo} onChange={this.handleChange} value={this.state.todoInput}/>
+        <div className="todo-input-container">
+          <input className="todo-input" type="text" placeholder="Add your to-do!" onKeyPress={this.handleAddTodo} onChange={this.handleChange} value={this.state.todoInput}/>
+          <button className="add-todo-button" onClick={this.handleAddTodoButton}>+</button>
+        </div>
       
           <TransitionGroup enter={true} appear={false} exit={true}>
             {this.props.todos.map((item) => {
@@ -89,11 +93,11 @@ class Todo extends React.Component {
                     
                     {
                       !item.edit ? 
-                      <p className={`todo__text ${item.completed ? "completed" : ""}`} id={item.id}>{item.todo}</p> : 
+                      <p className={`todo__text ${item.completed ? "completed" : ""}`} id={item.id} onClick={this.handleEditButton} data-todo={item.todo} data-id={item.id}>{item.todo}</p> : 
                       <input autoFocus={true} data-id={item.id} value={this.state.todoEdit} onChange={this.handleEditTodo} onKeyPress={this.handleEditSubmit} type="text" />
                     }
 
-                    <i className="far fa-edit" onClick={this.handleEditButton} data-todo={item.todo} data-id={item.id}></i>
+                    <i className="far fa-edit"></i>
 
                     <i className="fas fa-times" onClick={this.handleDeleteTodo} data-id={item.id}></i>
                   </div>
