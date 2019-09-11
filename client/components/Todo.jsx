@@ -35,7 +35,7 @@ class Todo extends React.Component {
   }
   handleAddTodoButton = e => {
     this.setState({id: this.state.id + 1})
-    this.props.addTodo({todo: e.target.value, id: this.state.id})
+    this.props.addTodo({todo: this.state.todoInput, id: this.state.id})
     this.setState({todoInput: ''})
   }
 
