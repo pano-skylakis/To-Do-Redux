@@ -97,7 +97,7 @@ class Todo extends React.Component {
                       <input autoFocus={true} data-id={item.id} value={this.state.todoEdit} onChange={this.handleEditTodo} onKeyPress={this.handleEditSubmit} type="text" />
                     }
 
-                    <i className="far fa-edit"></i>
+                    {/* <i className="far fa-edit"></i> */}
 
                     <i className="fas fa-times" onClick={this.handleDeleteTodo} data-id={item.id}></i>
                   </div>
